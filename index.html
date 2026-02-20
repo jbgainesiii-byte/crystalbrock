@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230D0A09'/><text x='16' y='25' font-family='Georgia%2Cserif' font-size='26' font-style='italic' font-weight='bold' fill='%23D4A853' text-anchor='middle'>C</text></svg>"/>
 <style>
 :root{--ink:#0D0A09;--ink2:#1A1410;--wine:#3C1120;--wine2:#5C1F35;--amber:#C4832A;--gold:#D4A853;--goldlt:#EDD07A;--cream:#F5EFE6;--muted:rgba(245,239,230,.4);--border:rgba(212,168,83,.18);}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -66,7 +67,7 @@ nav.dark{background:rgba(13,10,9,.93);backdrop-filter:blur(20px);padding:1.2rem 
 .hero-cnt{position:relative;z-index:5;padding-bottom:2rem;}
 .hero-loc{display:inline-flex;align-items:center;gap:.8rem;font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:2.5rem;opacity:0;animation:sup .8s ease forwards 2s;}
 .hero-loc::before{content:'';width:40px;height:1px;background:var(--gold);}
-.hero-hl{font-family:'Playfair Display',serif;font-size:clamp(5rem,13vw,16rem);font-weight:900;line-height:.88;letter-spacing:-.02em;opacity:0;animation:fup 1s cubic-bezier(.16,1,.3,1) forwards 2.2s;}
+.hero-hl{font-family:'Playfair Display',serif;font-size:clamp(4rem,10vw,12rem);font-weight:900;line-height:.88;letter-spacing:-.02em;opacity:0;animation:fup 1s cubic-bezier(.16,1,.3,1) forwards 2.2s;}
 .hero-hl .l1{display:block;color:var(--cream);}
 .hero-hl .l2{display:block;font-style:italic;color:var(--gold);padding-left:8vw;}
 .hero-hl .l3{display:block;color:var(--cream);padding-left:2vw;}
@@ -391,7 +392,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
 @media(max-width:1024px){
   nav{padding:1.2rem 5vw;}
   .nlinks{display:none;}
-  .hero-hl{font-size:clamp(4rem,16vw,8rem);}
+  .hero-hl{font-size:clamp(3.2rem,13vw,7rem);}
   .hero-bot{flex-direction:column;gap:2rem;align-items:flex-start;}
   .hero-acts{align-items:flex-start;}
   .stgrid{grid-template-columns:1fr;}
@@ -457,6 +458,22 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
   .hero-photo-wrap{width:100%;opacity:.25;}
   .hero-photo-fade{background:linear-gradient(to top,var(--ink) 0%,rgba(13,10,9,.85) 40%,rgba(13,10,9,.4) 100%);}
 }
+
+/* FAQ */
+.s-faq{padding:8vw 5vw;background:var(--ink);position:relative;overflow:hidden;}
+.s-faq::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 80% 50%,rgba(60,17,32,.4) 0%,transparent 55%);}
+.faqinner{max-width:860px;margin:0 auto;position:relative;z-index:1;}
+.faqh{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,5.5rem);font-weight:400;line-height:1.05;color:var(--cream);margin-bottom:3rem;}
+.faqh em{font-style:italic;color:var(--gold);}
+.faqlist{display:flex;flex-direction:column;}
+.faqitem{border-top:1px solid var(--border);}
+.faqitem:last-child{border-bottom:1px solid var(--border);}
+.faqitem summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:1.6rem 0;font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:400;color:var(--cream);cursor:pointer;gap:1.5rem;transition:color .2s;}
+.faqitem summary::-webkit-details-marker{display:none;}
+.faqitem summary:hover{color:var(--goldlt);}
+.faqmark{flex-shrink:0;width:22px;height:22px;border:1px solid rgba(212,168,83,.3);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--gold);transition:transform .3s,background .2s;}
+.faqitem[open] .faqmark{transform:rotate(45deg);background:rgba(212,168,83,.08);}
+.faqa{padding:0 0 1.8rem;font-size:.88rem;line-height:1.9;color:rgba(245,239,230,.45);max-width:680px;}
 </style>
 </head>
 <body>
@@ -497,9 +514,9 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
     <div class="hero-loc">Oak Park · Metro Detroit · Est. 2024</div>
     <h1 class="hero-hl"><span class="l1">Beauty</span><span class="l2">is power.</span><span class="l3">Own it.</span></h1>
     <div class="hero-bot">
-      <p class="hero-desc">Personalized skincare and makeup consulting for the corporate woman who refuses to choose between confidence and convenience. Serving Metro Detroit — virtually and in Oak Park.</p>
+      <p class="hero-desc">Personalized beauty for the woman who shows up fully in every room she enters. Virtual and in-person — Metro Detroit.</p>
       <div class="hero-acts">
-        <a href="#booking" class="btn-p">Book My Consultation</a>
+        <a href="#booking" class="btn-p">Book My Free 30-Min Consult</a>
         <a href="#consult" class="btn-g">Talk to Crystal's AI →</a>
       </div>
     </div>
@@ -701,7 +718,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
       <p class="slabel">Why Crystal</p>
       <h2 class="credh">More than a<br/><em>consultant.</em></h2>
       <p class="credp">Crystal sits at the intersection of beauty, financial empowerment, and women's confidence. That combination exists nowhere else in Metro Detroit.</p>
-      <div style="margin-top:2rem;"><a href="#booking" class="btn-p">Book Your Consultation</a></div>
+      <div style="margin-top:2rem;"><a href="#booking" class="btn-p">Book My Free Consultation</a></div>
     </div>
     <div class="rv">
       <div class="creditem d1"><div class="crednum">01</div><div><div class="credti">Mary Kay Independent Beauty Consultant</div><div class="credsb">Personalized skincare and makeup for Metro Detroit women. Virtual & in-person in Oak Park.</div></div></div>
@@ -709,6 +726,36 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
       <div class="creditem d3"><div class="crednum">03</div><div><div class="credti">Alignable Ambassador · Oak Park, MI</div><div class="credsb">Trusted community networker with verified business recommendations across Metro Detroit.</div></div></div>
       <div class="creditem d4"><div class="crednum">04</div><div><div class="credti">Credit Repair Specialist</div><div class="credsb">Founder of Brock Credit Repair & Monitoring — empowering women financially and professionally.</div></div></div>
       <div class="creditem d5"><div class="crednum">05</div><div><div class="credti">Henry Ford College Alumni · Oak Park Native</div><div class="credsb">Metro Detroit rooted, community focused, dedicated to women's success.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="s-faq" id="faq">
+  <div class="faqinner rv">
+    <p class="slabel">Common Questions</p>
+    <h2 class="faqh">You asked,<br/>Crystal <em>answers.</em></h2>
+    <div class="faqlist">
+      <details class="faqitem">
+        <summary>Is the consultation really free? <span class="faqmark">+</span></summary>
+        <p class="faqa">Yes — completely free. Your 30-minute consultation is a real conversation about your skin, your goals, and your lifestyle. No pressure to buy anything. Just personalized guidance from someone who genuinely listens.</p>
+      </details>
+      <details class="faqitem">
+        <summary>Do you only use Mary Kay products? <span class="faqmark">+</span></summary>
+        <p class="faqa">Crystal is a Mary Kay Independent Beauty Consultant, so her recommendations come from the Mary Kay line — over 200 scientifically tested skincare and makeup products for every skin type, tone, and concern.</p>
+      </details>
+      <details class="faqitem">
+        <summary>Can we meet virtually? <span class="faqmark">+</span></summary>
+        <p class="faqa">Absolutely. Crystal works with women across Metro Detroit and beyond through virtual sessions. All you need is your phone or laptop. In-person appointments are available in Oak Park, Michigan.</p>
+      </details>
+      <details class="faqitem">
+        <summary>What happens during my first appointment? <span class="faqmark">+</span></summary>
+        <p class="faqa">Crystal will ask about your skin type, daily routine, lifestyle, and how you want to feel — not just look. From there she'll build a personalized routine for you by product name. It's a real conversation, not a sales pitch.</p>
+      </details>
+      <details class="faqitem">
+        <summary>What if I've never done a consultation before? <span class="faqmark">+</span></summary>
+        <p class="faqa">You're in the right place. Most of Crystal's clients came to her not knowing where to start. She makes the process simple, warm, and completely tailored to you — no experience required.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -736,7 +783,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
         <a href="https://linktr.ee/crystalbrock" target="_blank" rel="noopener" class="ftsocl" aria-label="Linktree">LT</a>
       </div>
     </div>
-    <div><p class="ftcolt">Navigate</p><ul class="ftcoll"><li><a href="#story">My Story</a></li><li><a href="#consult">AI Consult</a></li><li><a href="#services">Services</a></li><li><a href="#shop">Shop</a></li><li><a href="#vip">VIP List</a></li></ul></div>
+    <div><p class="ftcolt">Navigate</p><ul class="ftcoll"><li><a href="#story">My Story</a></li><li><a href="#consult">AI Consult</a></li><li><a href="#services">Services</a></li><li><a href="#shop">Shop</a></li><li><a href="#vip">VIP List</a></li><li><a href="#faq">FAQ</a></li></ul></div>
     <div><p class="ftcolt">Services</p><ul class="ftcoll"><li><a href="#booking">Skin Consultation</a></li><li><a href="#booking">Makeover Experience</a></li><li><a href="#booking">Virtual Sessions</a></li><li><a href="#booking">Beauty Parties</a></li></ul></div>
     <div><p class="ftcolt">Connect</p><ul class="ftcoll"><li><a href="mailto:cbrockmk@gmail.com">cbrockmk@gmail.com</a></li><li><a href="#booking">Book a Consultation</a></li><li><a href="#vip">Join VIP List</a></li><li><a href="https://www.marykay.com/cbrock3008" target="_blank">Shop Mary Kay</a></li></ul></div>
   </div>
