@@ -765,7 +765,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
       <div class="shopcta">Shop Gifts →</div>
     </a>
   </div>
-  <p class="shopdisc rv">All products sold through Crystal Brock's official Mary Kay independent consultant store at marykay.com/cbrock. Crystal is an independent beauty consultant and earns directly from your purchases. Product availability and pricing managed by Mary Kay Inc.</p>
+  <p class="shopdisc rv">All products sold through Crystal Brock's official Mary Kay independent consultant store at <a href="https://www.marykay.com/cbrock3008" target="_blank" rel="noopener" style="color:var(--gold);">marykay.com/cbrock3008</a>. Crystal is an independent beauty consultant and earns directly from your purchases. Product availability and pricing managed by Mary Kay Inc.</p>
 </section>
 
 <!-- MANIFESTO -->
@@ -829,7 +829,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
   <div class="testinn">
     <div class="testhead rv">
       <h2 class="testh">What clients are<br/><em>saying.</em></h2>
-      <p class="testnote">Sample review copy for this prototype layout. Replace with real, verified client feedback before final launch.</p>
+      <p class="testnote" style="color:var(--gold);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;">⚠ Placeholder reviews — replace with real client testimonials before sharing publicly</p>
     </div>
     <div class="testgrid">
       <article class="testcard rv d1">
@@ -872,6 +872,14 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
         <h3 class="faqq">How do I follow up after the chat?</h3>
         <p class="faqa">Use the booking button or email directly. Crystal will follow up with next-step recommendations.</p>
       </article>
+      <article class="faqitem rv d1">
+        <h3 class="faqq">How much does a consultation cost?</h3>
+        <p class="faqa">The initial 30-minute consultation is free. There is no obligation to purchase anything. Crystal will walk you through your options and you decide what fits your needs and budget.</p>
+      </article>
+      <article class="faqitem rv d2">
+        <h3 class="faqq">Do you serve clients outside Oak Park?</h3>
+        <p class="faqa">Yes. Crystal serves all of Metro Detroit virtually and in-person. Virtual sessions are available to anyone in Michigan.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -882,7 +890,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
   <h2 class="bookh rv">Let's find your<br/><em>most confident self.</em></h2>
   <p class="booksub rv">Free 30-minute consultation. Virtual anywhere. In-person in Oak Park, Michigan.</p>
   <div class="bookbtns rv">
-    <a href="https://calendly.com/crystalbrock" target="_blank" rel="noopener" class="btnbook">Book My Free Consultation</a>
+    <a href="https://calendly.com/cbrockmk" target="_blank" rel="noopener" class="btnbook">Book My Free Consultation</a>
     <a href="mailto:cbrockmk@gmail.com" class="btnbookg">Email Crystal Directly</a>
   </div>
 </section>
@@ -903,7 +911,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
     </div>
     <div><p class="ftcolt">Navigate</p><ul class="ftcoll"><li><a href="#story">My Story</a></li><li><a href="#consult">Beauty Chat</a></li><li><a href="#services">Services</a></li><li><a href="#shop">Shop</a></li><li><a href="#vip">VIP List</a></li></ul></div>
     <div><p class="ftcolt">Services</p><ul class="ftcoll"><li><a href="#booking">Skin Consultation</a></li><li><a href="#booking">Makeover Experience</a></li><li><a href="#booking">Virtual Sessions</a></li><li><a href="#booking">Beauty Parties</a></li></ul></div>
-    <div><p class="ftcolt">Connect</p><ul class="ftcoll"><li><a href="mailto:cbrockmk@gmail.com">cbrockmk@gmail.com</a></li><li><a href="#booking">Book a Consultation</a></li><li><a href="#vip">Join VIP List</a></li><li><a href="https://www.marykay.com/cbrock3008" target="_blank" rel="noopener">Shop Mary Kay</a></li></ul></div>
+    <div><p class="ftcolt">Connect</p><ul class="ftcoll"><li><a href="mailto:cbrockmk@gmail.com">cbrockmk@gmail.com</a></li><li><a href="#booking">Book a Consultation</a></li><li><a href="#vip">Join VIP List</a></li><li><a href="https://www.marykay.com/cbrock3008" target="_blank" rel="noopener">Shop Mary Kay</a></li><li><a href="https://calendly.com/cbrockmk" target="_blank" rel="noopener">Schedule Online</a></li></ul></div>
   </div>
   <div class="ftbot"><p class="ftcp">© 2026 Crystal Brock · Oak Park, Michigan</p><p class="ftmk">Independent Mary Kay Beauty Consultant</p><a class="ftcredit" href="https://detroitaiworks.com" target="_blank" rel="noopener">Site designed by Detroit AI Works</a></div>
 </footer>
@@ -949,24 +957,36 @@ function detectProfile(text){
 async function callAI(history){
   const userMessages=history.filter(m=>m.role==='user').map(m=>m.content||'');
   const turn=userMessages.length;
-  const fullContext=userMessages.join(' ');
+  const fullContext=userMessages.join(' ').toLowerCase();
 
   if(turn<=1){
-    return "Hi, I'm Crystal's beauty guide. I'm glad you're here. To build your personalized plan, what are your top 1-2 beauty goals right now?";
+    return "Hi! I'm Crystal's beauty guide — here to help you find exactly what works for your skin and your life.\n\nWhat's your biggest beauty concern right now? Skin, makeup, or both?";
   }
   if(turn===2){
-    return "Perfect, thank you. Is your skin mostly dry, oily, combination, sensitive, or seasonal? Also, what makeup finish do you prefer: natural, polished, or full glam?";
+    const hasSkin=/skin|dry|oily|acne|dark|aging|wrinkle|glow|dull|sensitive|redness|breakout|moistur/.test(fullContext);
+    const hasMakeup=/makeup|foundation|lipstick|mascara|eye|brow|contour|blush|coverage|finish/.test(fullContext);
+    if(hasSkin){
+      return "I hear you. Skin concerns are so personal — what Michigan winters do to your skin is real.\n\nQuick question: would you describe your skin as mostly dry, oily, combination, or sensitive? And do you have any specific concerns like dark spots, redness, or fine lines?";
+    }
+    if(hasMakeup){
+      return "Love that. Makeup that actually works with your skin makes all the difference.\n\nWhat finish do you prefer — natural and effortless, polished and professional, or full glam? And how much time do you realistically have for your morning routine?";
+    }
+    return "Tell me a little more — are you focused on skincare, makeup, or building a full routine from scratch? I want to make sure Crystal's recommendations are built around what you actually need.";
   }
   if(turn===3){
-    return "Helpful. Last quick question: what does your current morning/night routine look like, and how much time do you realistically want for skincare and makeup?";
+    return "Perfect. One more thing — what does your current routine look like? Even if it's just soap and water, that's helpful. And what's your budget comfort zone: simple and affordable, mid-range, or investment pieces that last?";
   }
 
   const plan=detectProfile(fullContext);
   if(turn===4){
-    return `Based on what you shared, here's a personalized starter routine.\n\nMorning: ${plan.cleanser} + ${plan.day}.\nEvening: ${plan.cleanser} + ${plan.night}.\nMakeup picks: ${plan.foundation} + ${plan.lips}.\nIf you want, I can fine-tune this by budget, finish, or lip color family.`;
+    const concern=fullContext.includes('aging')||fullContext.includes('wrinkle')?'anti-aging focus':'general care';
+    return `Based on everything you shared, here's a personalized starter routine built for you.\n\nMorning: ${plan.cleanser} → ${plan.day}\nEvening: ${plan.cleanser} → ${plan.night}\nMakeup: ${plan.foundation} + ${plan.lips}\n\nThis is a starting point. Crystal will fine-tune it around your exact skin, schedule, and budget when you connect with her.\n\nWant her to put together a full personalized plan just for you?`;
+  }
+  if(turn===5){
+    return "Crystal can do a full consultation — virtual or in-person in Oak Park — where she builds your complete routine from scratch. No pressure, no obligation to buy anything.\n\nShare your name and email below and she'll follow up personally within 24 hours.";
   }
 
-  return "Great context. I can adjust this by budget, sensitivity, coverage level, or how often you wear makeup. Share your preference and I'll tighten the plan.";
+  return "Crystal would love to connect with you directly. She follows up personally within 24 hours. Share your details below and she'll reach out.";
 }
 
 /* ═══ CHAT STATE ═══ */
@@ -1056,7 +1076,7 @@ async function send(chat){
   state.history.push({role:'assistant',content:reply});
   state.count++;
   addMsg(msgs,'assistant',reply);
-  if(state.count>=4&&!state.emailDone&&!state.consultDone){
+  if(state.count>=3&&!state.emailDone&&!state.consultDone){
     state.consultDone=true;
     setTimeout(()=>addEmailCapture(msgs,state,chat),600);
   }
