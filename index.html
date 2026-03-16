@@ -1113,7 +1113,9 @@ window.addEventListener('scroll',()=>{
 });
 
 /* ═══ LOADER + INIT ═══ */
+if('scrollRestoration' in history) history.scrollRestoration='manual';
 window.addEventListener('load',()=>{
+  window.scrollTo(0,0);
   setTimeout(()=>document.getElementById('loader').classList.add('out'),2000);
   setTimeout(()=>initChat('main'),2600);
 });
