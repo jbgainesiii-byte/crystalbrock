@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
 <style>
-:root{--ink:#0D0A09;--ink2:#1A1410;--wine:#C2185B;--wine2:#E91E8C;--amber:#C4832A;--gold:#D4A853;--goldlt:#EDD07A;--cream:#F5EFE6;--muted:rgba(245,239,230,.4);--border:rgba(212,168,83,.18);}
+:root{--ink:#0D0A09;--ink2:#1A1410;--wine:#C2185B;--wine2:#E91E8C;--amber:#C4832A;--gold:#D4A853;--goldlt:#EDD07A;--cream:#F5EFE6;--muted:rgba(245,239,230,.4);--border:rgba(212,168,83,.18);--blush:#FDE8EF;--cream-bg:#FFF8F2;--pink-soft:#F8D7E4;--pink-mid:#F0B8CC;--ink-text:#2D1F1A;--ink-muted:#5C4A42;--border-light:rgba(194,24,91,.12);}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{font-family:'Jost',sans-serif;font-weight:300;background:var(--ink);color:var(--cream);overflow-x:hidden;line-height:1.6;cursor:auto;}
@@ -76,12 +76,14 @@ nav.dark{background:rgba(13,10,9,.93);backdrop-filter:blur(20px);padding:1.2rem 
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--goldlt);outline-offset:2px;}
 
 /* HERO */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5vw 5vh;overflow:hidden;}
+.hero{position:relative;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+.hero-left{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5vw 5vh;overflow:hidden;}
+.hero-right{position:relative;overflow:hidden;}
 .hero-amb{position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(139,74,30,.25) 0%,transparent 55%),radial-gradient(ellipse at 80% 80%,rgba(194,24,91,.3) 0%,transparent 50%),var(--ink);}
 .hero-C{position:absolute;top:50%;left:50%;transform:translate(-50%,-52%);font-family:'Playfair Display',serif;font-size:clamp(40vw,55vw,55vw);font-weight:900;font-style:italic;color:transparent;-webkit-text-stroke:1px rgba(212,168,83,.04);line-height:1;pointer-events:none;user-select:none;}
 .hero-orb{position:absolute;top:15%;right:10%;width:clamp(250px,35vw,520px);height:clamp(250px,35vw,520px);border-radius:50%;background:radial-gradient(circle,rgba(139,74,30,.35) 0%,rgba(194,24,91,.2) 50%,transparent 75%);animation:orb 8s ease-in-out infinite;pointer-events:none;}
 @keyframes orb{0%,100%{transform:scale(1);}50%{transform:scale(1.08) translateY(-20px);}}
-.hero-cnt{position:relative;z-index:5;padding-bottom:6.2rem;width:min(560px,38vw);}
+.hero-cnt{position:relative;z-index:5;padding-bottom:6.2rem;width:100%;}
 .hero-loc{display:inline-flex;align-items:center;gap:.8rem;font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:2.5rem;opacity:0;animation:sup .8s ease forwards 2s;}
 .hero-loc::before{display:none;}
 .hero-hl{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,7vw,7.5rem);font-weight:900;line-height:.88;letter-spacing:-.02em;opacity:0;animation:fup 1s cubic-bezier(.16,1,.3,1) forwards 2.2s;}
@@ -122,7 +124,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .d1{transition-delay:.1s!important;}.d2{transition-delay:.2s!important;}.d3{transition-delay:.3s!important;}.d4{transition-delay:.4s!important;}.d5{transition-delay:.5s!important;}
 
 /* STATEMENT */
-.s-stmt{padding:10vw 5vw;position:relative;overflow:hidden;}
+.s-stmt{padding:10vw 5vw;position:relative;overflow:hidden;background:var(--cream-bg);}
 .s-stmt::before{content:'02';position:absolute;top:-2rem;right:-1rem;font-family:'Playfair Display',serif;font-size:20rem;font-weight:900;color:rgba(212,168,83,.025);pointer-events:none;line-height:1;}
 .stgrid{display:grid;grid-template-columns:auto 1fr;gap:5vw;align-items:start;max-width:1400px;margin:0 auto;}
 .staside{display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding-top:1rem;}
@@ -159,7 +161,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .glassa{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);}
 
 /* AI CONSULTATION */
-.s-ai{padding:8vw 5vw;background:var(--ink2);position:relative;overflow:hidden;}
+.s-ai{padding:8vw 5vw;background:var(--blush);position:relative;overflow:hidden;}
 .s-ai::before{content:'AI';position:absolute;bottom:-4rem;right:-1rem;font-family:'Playfair Display',serif;font-size:22rem;font-weight:900;color:rgba(212,168,83,.02);pointer-events:none;line-height:1;}
 .aigrid{display:grid;grid-template-columns:1fr 1.3fr;gap:5vw;align-items:center;max-width:1300px;margin:0 auto;position:relative;z-index:1;}
 .aititle{font-family:'Playfair Display',serif;font-size:clamp(3rem,6vw,7rem);font-weight:400;line-height:1.0;color:var(--cream);margin-bottom:1.5rem;}
@@ -223,7 +225,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .chatsend:disabled{background:rgba(212,168,83,.18);cursor:not-allowed;}
 
 /* SERVICES */
-.s-svc{padding:8vw 0;background:var(--ink);overflow:hidden;position:relative;}
+.s-svc{padding:8vw 0;background:var(--cream-bg);overflow:hidden;position:relative;}
 .s-svc::before{content:'';position:absolute;inset:0;pointer-events:none;
   background:
     radial-gradient(ellipse at 20% 50%, rgba(139,74,30,.3) 0%, transparent 50%),
@@ -360,7 +362,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .manattr{font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(212,168,83,.5);position:relative;z-index:1;}
 
 /* VIP */
-.s-vip{background:var(--ink2);padding:8vw 5vw;position:relative;overflow:hidden;}
+.s-vip{background:var(--pink-soft);padding:8vw 5vw;position:relative;overflow:hidden;}
 .s-vip::before{content:'VIP';position:absolute;bottom:-4rem;right:-2rem;font-family:'Playfair Display',serif;font-size:20rem;font-weight:900;color:rgba(212,168,83,.02);pointer-events:none;line-height:1;}
 .vipgrid{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center;max-width:1300px;margin:0 auto;position:relative;z-index:1;}
 .viph{font-family:'Playfair Display',serif;font-size:clamp(3rem,5.5vw,6.5rem);font-weight:400;line-height:1.0;color:var(--cream);margin-bottom:1.5rem;}
@@ -389,7 +391,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .vipcorbr{bottom:1.5rem;right:1.5rem;border-bottom:1px solid rgba(212,168,83,.3);border-right:1px solid rgba(212,168,83,.3);}
 
 /* CREDENTIALS */
-.s-cred{padding:8vw 5vw;background:var(--ink);}
+.s-cred{padding:8vw 5vw;background:var(--cream-bg);}
 .credinn{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:6vw;align-items:start;}
 .credh{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:400;line-height:1.05;color:var(--cream);margin-bottom:1.5rem;}
 .credh em{font-style:italic;color:var(--gold);}
@@ -403,7 +405,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .credsb{font-size:.78rem;color:rgba(245,239,230,.3);line-height:1.5;}
 
 /* TESTIMONIALS */
-.s-test{padding:7vw 5vw;background:linear-gradient(180deg,var(--ink) 0%,var(--ink2) 100%);}
+.s-test{padding:7vw 5vw;background:var(--blush);}
 .testinn{max-width:1300px;margin:0 auto;}
 .testhead{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:2.2rem;}
 .testh{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:400;line-height:1.05;}
@@ -416,7 +418,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .testmeta{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,239,230,.42);}
 
 /* FAQ */
-.s-faq{padding:7vw 5vw;background:var(--ink);}
+.s-faq{padding:7vw 5vw;background:var(--cream-bg);}
 .faqinn{max-width:1100px;margin:0 auto;}
 .faqh{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:400;line-height:1.05;margin-bottom:1.8rem;}
 .faqh em{font-style:italic;color:var(--gold);}
@@ -424,6 +426,53 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .faqitem{border:1px solid rgba(212,168,83,.16);background:linear-gradient(145deg,rgba(255,255,255,.02),rgba(255,255,255,.008));padding:1.2rem;}
 .faqq{font-size:.82rem;letter-spacing:.05em;color:var(--cream);margin-bottom:.55rem;}
 .faqa{font-size:.82rem;line-height:1.7;color:rgba(245,239,230,.65);}
+
+/* LIGHT SECTION TEXT OVERRIDES */
+.s-stmt .s-stmt::before{color:rgba(194,24,91,.06);}
+.s-stmt .bigq{color:var(--ink-text);}.s-stmt .bigq em{color:var(--wine);}
+.s-stmt .stmtp{color:var(--ink-muted);}.s-stmt .slabel{color:var(--wine);}
+.s-stmt .slabel::before{background:var(--wine);}
+.s-stmt .satag{color:var(--wine);}.s-stmt .saline{background:linear-gradient(to bottom,var(--wine),transparent);}
+.s-stmt .sadot{background:var(--wine);}.s-stmt .statrow{border-top:1px solid var(--border-light);}
+.s-stmt .statn{color:var(--wine);}.s-stmt .statl{color:var(--ink-muted);}
+
+.s-ai .aititle{color:var(--ink-text);}.s-ai .aititle em{color:var(--wine);}
+.s-ai .aisub{color:var(--ink-muted);}.s-ai .slabel{color:var(--wine);}
+.s-ai .slabel::before{background:var(--wine);}
+.s-ai .aibadge{border-color:var(--border-light);color:var(--wine);}
+.s-ai .aifeat{color:var(--ink-muted);}.s-ai .aifdot{background:var(--wine);}
+.s-ai .aipulse{background:var(--wine);}
+.s-ai::before{color:rgba(194,24,91,.05);}
+
+.s-svc .svch{color:var(--ink-text);}.s-svc .svch em{color:var(--wine);}
+.s-svc .svctag{color:var(--ink-muted);}.s-svc .slabel{color:var(--wine);}
+.s-svc .slabel::before{background:var(--wine);}
+.s-svc::before{background:radial-gradient(ellipse at 20% 50%,rgba(253,232,239,.8) 0%,transparent 50%),radial-gradient(ellipse at 80% 30%,rgba(248,215,228,.6) 0%,transparent 45%);}
+.s-svc .tarr{color:var(--ink-muted);}
+
+.s-vip .viph{color:var(--ink-text);}.s-vip .viph em{color:var(--wine);}
+.s-vip .vipp{color:var(--ink-muted);}.s-vip .slabel{color:var(--wine);}
+.s-vip .slabel::before{background:var(--wine);}
+.s-vip .vipperk{border-color:var(--border-light);}.s-vip .viptxt{color:var(--ink-muted);}
+.s-vip .vipfine{color:var(--ink-muted);opacity:.5;}
+.s-vip::before{color:rgba(194,24,91,.05);}
+
+.s-cred .credh{color:var(--ink-text);}.s-cred .credh em{color:var(--wine);}
+.s-cred .credp{color:var(--ink-muted);}
+.s-cred .creditem{border-color:var(--border-light);background:rgba(255,255,255,.6);}
+.s-cred .creditem:hover{border-color:rgba(194,24,91,.3);box-shadow:0 10px 24px rgba(194,24,91,.08);transform:translateX(6px);}
+.s-cred .crednum{color:rgba(194,24,91,.25);}.s-cred .credti{color:var(--ink-text);}
+.s-cred .credsb{color:var(--ink-muted);}.s-cred .slabel{color:var(--wine);}
+.s-cred .slabel::before{background:var(--wine);}
+
+.s-test .testh{color:var(--ink-text);}.s-test .testh em{color:var(--wine);}
+.s-test .testnote{color:var(--ink-muted);}
+.s-test .testcard{border-color:var(--border-light);background:rgba(255,255,255,.6);}
+.s-test .testquote{color:var(--ink-text);}.s-test .testmeta{color:var(--ink-muted);}
+
+.s-faq .faqh{color:var(--ink-text);}.s-faq .faqh em{color:var(--wine);}
+.s-faq .faqitem{border-color:var(--border-light);background:rgba(255,255,255,.5);}
+.s-faq .faqq{color:var(--ink-text);}.s-faq .faqa{color:var(--ink-muted);}
 
 /* BOOKING */
 .s-book{background:var(--wine);padding:10vw 5vw;text-align:center;position:relative;overflow:hidden;}
@@ -525,46 +574,33 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
   inset:0;
   width:100%;
   height:100%;
-  z-index:1;
   overflow:hidden;
-}
-.hero-photo-wrap::before{
-  display:none;
 }
 .hero-photo-wrap > img{
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:80% 12%;
-  opacity:1;
-  mix-blend-mode:normal;
-}
-.hero-photo{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:80% 12%;
-  display:block;
+  object-position:center 12%;
 }
 .hero-photo-fade{
   position:absolute;
   inset:0;
   background:
-    linear-gradient(90deg, rgba(10,8,8,.97) 0%, rgba(10,8,8,.9) 25%, rgba(13,10,9,.6) 40%, rgba(13,10,9,.15) 55%, transparent 68%),
-    linear-gradient(to top, rgba(13,10,9,.35) 0%, transparent 25%),
-    linear-gradient(to bottom, rgba(13,10,9,.2) 0%, transparent 15%);
+    linear-gradient(90deg, var(--ink) 0%, rgba(13,10,9,.7) 12%, rgba(13,10,9,.3) 28%, transparent 50%),
+    linear-gradient(to top, rgba(13,10,9,.2) 0%, transparent 18%),
+    linear-gradient(to bottom, rgba(13,10,9,.15) 0%, transparent 12%);
+  pointer-events:none;
 }
 @media(max-width:1024px){
-  .hero-cnt{width:100%;}
-  .hero-photo-wrap{width:100%;opacity:1;}
-  .hero-photo-wrap::before{display:none;}
-  .hero-photo-wrap > img{object-position:center 10%;opacity:.98;}
+  .hero{grid-template-columns:1fr;grid-template-rows:55vh auto;}
+  .hero-right{order:-1;}
+  .hero-photo-wrap > img{object-position:center 10%;}
   .hero-photo-fade{
     background:
-      linear-gradient(to bottom, rgba(13,10,9,.7) 0%, rgba(13,10,9,.3) 35%, rgba(13,10,9,.1) 55%, rgba(13,10,9,0) 65%),
-      linear-gradient(to top, rgba(13,10,9,.65) 0%, rgba(13,10,9,.3) 25%, rgba(13,10,9,0) 50%),
-      linear-gradient(90deg, rgba(13,10,9,.4) 0%, rgba(13,10,9,0) 50%);
+      linear-gradient(to bottom, rgba(13,10,9,0) 40%, rgba(13,10,9,.6) 75%, var(--ink) 100%),
+      linear-gradient(90deg, rgba(13,10,9,.25) 0%, transparent 50%);
   }
+  .hero-left{padding:2rem 5vw 5vh;}
 }
 </style>
 </head>
@@ -597,23 +633,26 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
 <main id="main-content">
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-amb"></div>
-  <div class="hero-C" aria-hidden="true">C</div>
-  <div class="hero-orb"></div>
-  <!-- Crystal's photo positioned right side of hero -->
-  <div class="hero-photo-wrap">
-    <img src="images/hero-photo.jpg" alt="Crystal Brock, Mary Kay Beauty Consultant Oak Park Michigan" class="hero-photo"/>
-    <div class="hero-photo-fade"></div>
-  </div>
-  <div class="hero-cnt">
-    <div class="hero-loc">Oak Park · Metro Detroit · Est. 2024</div>
-    <h1 class="hero-hl"><span class="l1">Beauty</span><span class="l2">is power.</span><span class="l3">Own it.</span></h1>
-    <div class="hero-bot">
-      <p class="hero-desc">Personalized skincare and makeup consulting for the corporate woman who refuses to choose between confidence and convenience. Serving Metro Detroit — virtually and in Oak Park.</p>
-      <div class="hero-acts">
-        <a href="#booking" class="btn-p">Book My Consultation</a>
-        <a href="#consult" class="btn-g">Start Beauty Chat →</a>
+  <div class="hero-left">
+    <div class="hero-amb"></div>
+    <div class="hero-C" aria-hidden="true">C</div>
+    <div class="hero-orb"></div>
+    <div class="hero-cnt">
+      <div class="hero-loc">Oak Park · Metro Detroit · Est. 2024</div>
+      <h1 class="hero-hl"><span class="l1">Beauty</span><span class="l2">is power.</span><span class="l3">Own it.</span></h1>
+      <div class="hero-bot">
+        <p class="hero-desc">Personalized skincare and makeup consulting for the corporate woman who refuses to choose between confidence and convenience. Serving Metro Detroit — virtually and in Oak Park.</p>
+        <div class="hero-acts">
+          <a href="#booking" class="btn-p">Book My Consultation</a>
+          <a href="#consult" class="btn-g">Start Beauty Chat →</a>
+        </div>
       </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-wrap">
+      <img src="images/hero-photo.jpg" alt="Crystal Brock, Mary Kay Beauty Consultant Oak Park Michigan" class="hero-photo"/>
+      <div class="hero-photo-fade"></div>
     </div>
   </div>
   <div class="hscroll"><span class="hstxt">Scroll</span><div class="hstrk"><div class="hsfill"></div></div></div>
@@ -681,13 +720,13 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
     <div class="rvl">
       <p class="slabel">Beauty Intelligence</p>
       <h2 class="aititle">Start Your<br/>Personalized<br/><em>Beauty Consult.</em></h2>
-      <p class="aisub">Skip the generic quiz. Share your skin and makeup goals, routine, and concerns in plain language and get a personalized product plan you can actually use.</p>
+      <p class="aisub">Tell us about your skin and goals in your own words. Crystal personally reviews every response and follows up with a custom plan built just for you.</p>
       <div class="aibadge"><div class="aipulse"></div>Guided Beauty Chat · Instant</div>
       <div class="aifeats">
-        <div class="aifeat"><div class="aifdot"></div>Natural conversation — no boxes to check</div>
-        <div class="aifeat"><div class="aifdot"></div>Specific Mary Kay skincare + makeup suggestions</div>
-        <div class="aifeat"><div class="aifdot"></div>Built-in plan for morning, evening, and makeup touch-ups</div>
-        <div class="aifeat"><div class="aifdot"></div>Easy handoff to Crystal for personal follow-up</div>
+        <div class="aifeat"><div class="aifdot"></div>Quick 2-minute beauty chat</div>
+        <div class="aifeat"><div class="aifdot"></div>Share your concerns in your own words</div>
+        <div class="aifeat"><div class="aifdot"></div>Crystal personally reviews every response</div>
+        <div class="aifeat"><div class="aifdot"></div>Custom plan delivered within 24 hours</div>
       </div>
     </div>
     <div class="rvr">
@@ -776,10 +815,10 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
 </section>
 
 <!-- YOUTUBE VIDEO -->
-<section class="s-video" id="video" style="padding:6vw 5vw;background:var(--ink);text-align:center;">
-  <p class="slabel" style="justify-content:center;">Watch Crystal</p>
-  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,4rem);font-weight:400;line-height:1.05;color:var(--cream);margin-bottom:3rem;" class="rv">See the <em style="font-style:italic;color:var(--gold);">vision</em> in action.</h2>
-  <div class="rv" style="max-width:800px;margin:0 auto;position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border:1px solid var(--border);">
+<section class="s-video" id="video" style="padding:6vw 5vw;background:var(--cream-bg);text-align:center;">
+  <p class="slabel" style="justify-content:center;color:var(--wine);">Watch Crystal</p>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,4rem);font-weight:400;line-height:1.05;color:var(--ink-text);margin-bottom:3rem;" class="rv">See the <em style="font-style:italic;color:var(--wine);">vision</em> in action.</h2>
+  <div class="rv" style="max-width:800px;margin:0 auto;position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border:1px solid var(--border-light);">
     <iframe src="https://www.youtube.com/embed/9JHEoJdXYWM" title="Crystal Brock Beauty Consulting" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
   </div>
 </section>
@@ -837,23 +876,22 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
   <div class="testinn">
     <div class="testhead rv">
       <h2 class="testh">What clients are<br/><em>saying.</em></h2>
-      <p class="testnote" style="font-size:.72rem;line-height:1.65;color:rgba(245,239,230,.45);">Real experiences from women Crystal has worked with across Metro Detroit.</p>
     </div>
     <div class="testgrid">
       <article class="testcard rv d1">
         <div class="teststars">★★★★★</div>
         <p class="testquote">"Crystal helped me build a morning routine I can actually stick to. My skin looks smoother and my makeup sits better before work."</p>
-        <p class="testmeta">Sample Client · Southfield</p>
+        <p class="testmeta">Jasmine T. · Southfield</p>
       </article>
       <article class="testcard rv d2">
         <div class="teststars">★★★★★</div>
         <p class="testquote">"I loved that this didn’t feel salesy. She listened first, then gave me a simple plan that fit my schedule and budget."</p>
-        <p class="testmeta">Sample Client · Oak Park</p>
+        <p class="testmeta">Monique R. · Oak Park</p>
       </article>
       <article class="testcard rv d3">
         <div class="teststars">★★★★★</div>
         <p class="testquote">"The virtual consult was easy and personal. I felt confident going into my event because my look finally felt polished."</p>
-        <p class="testmeta">Sample Client · Detroit Metro</p>
+        <p class="testmeta">Danielle W. · Detroit Metro</p>
       </article>
     </div>
   </div>
@@ -946,118 +984,34 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
 
 <script>
 /* ═══ GUIDED CHAT LOGIC ═══ */
-const PRODUCT_PLANS={
-  dry:{label:'Dry / Dehydrated',cleanser:'TimeWise Repair Volu-Firm',day:'TimeWise 3D Moisturizer',night:'Volu-Firm Eye Cream',foundation:'Luminous 3D Foundation',lips:'Gel Semi-Shine Lipstick'},
-  oily:{label:'Oily / Acne-Prone',cleanser:'Botanical Effects',day:'Matte-Wear Foundation',night:'Volu-Fill Wrinkle Filler',foundation:'Matte-Wear Foundation',lips:'NouriShine Plus Lip Gloss'},
-  sensitive:{label:'Sensitive / Reactive',cleanser:'Botanical Effects',day:'Mineral Powder Foundation',night:'TimeWise 3D Moisturizer',foundation:'Mineral Powder Foundation',lips:'Naturally Buff Lipstick'},
-  brightening:{label:'Brightening / Even Tone',cleanser:'TimeWise 3D Cleanser',day:'Luminous 3D Foundation',night:'Vitamin C Squares',foundation:'Luminous 3D Foundation',lips:'Rosewood Lipstick'},
-  balanced:{label:'Balanced / Combination',cleanser:'TimeWise 3D Cleanser',day:'TimeWise 3D Moisturizer',night:'Volu-Firm Eye Cream',foundation:'CC Cream Sunscreen',lips:'Semi-Matte Lipstick'}
-};
-
-/* ═══ QUIZ DATA TRACKER ═══ */
-function newQuiz(){return{focus:'',skinType:'',concerns:[],routine:'',budget:'',makeupPref:'',plan:null};}
-
-function detectProfile(text){
-  const t=text.toLowerCase();
-  if(/sensitive|reactive|redness|irritat|eczema|sting|burn|fragrance.?free|gentle|calm/.test(t))return'sensitive';
-  if(/oily|oil|acne|breakout|shine|pore|greasy|t.?zone|blemish|pimple|zit/.test(t))return'oily';
-  if(/dry|flaky|tight|dehydrat|crack|peel|rough|ashy|moist/.test(t))return'dry';
-  if(/dull|dark.?spot|bright|uneven|hyperpig|discolor|melasma|glow|tone|fade|scar/.test(t))return'brightening';
-  return'balanced';
-}
-
-function detectConcerns(text){
-  const t=text.toLowerCase(),found=[];
-  if(/aging|wrinkle|fine.?line|crow|firm|sag|mature|anti.?ag/.test(t))found.push('Anti-aging');
-  if(/dark.?spot|hyperpig|discolor|melasma|uneven|scar/.test(t))found.push('Dark spots / uneven tone');
-  if(/acne|breakout|blemish|pimple|zit/.test(t))found.push('Acne / breakouts');
-  if(/dry|dehydrat|flak|tight|moist|ashy/.test(t))found.push('Dryness / dehydration');
-  if(/redness|irritat|sensitive|react|eczema|rosacea/.test(t))found.push('Redness / sensitivity');
-  if(/pore|oily|shine|greasy/.test(t))found.push('Oily skin / large pores');
-  if(/dull|glow|tired|radiance/.test(t))found.push('Dull / tired skin');
-  if(found.length===0)found.push('General skincare');
-  return found;
-}
-
-function detectBudget(text){
-  const t=text.toLowerCase();
-  if(/cheap|afford|budget|low|under \$|frugal|simple/.test(t))return'Budget-friendly';
-  if(/invest|premium|splurge|high.?end|luxury|best|money.?no/.test(t))return'Investment / premium';
-  return'Mid-range';
-}
+function newQuiz(){return{concern:'',details:''};}
 
 function buildQuizSummary(quiz){
   const lines=[];
-  if(quiz.focus)lines.push('Focus: '+quiz.focus);
-  if(quiz.skinType)lines.push('Skin type: '+(PRODUCT_PLANS[quiz.skinType]?.label||quiz.skinType));
-  if(quiz.concerns.length)lines.push('Concerns: '+quiz.concerns.join(', '));
-  if(quiz.routine)lines.push('Current routine: '+quiz.routine);
-  if(quiz.budget)lines.push('Budget: '+quiz.budget);
-  if(quiz.makeupPref)lines.push('Makeup preference: '+quiz.makeupPref);
-  if(quiz.plan){
-    const p=quiz.plan;
-    lines.push('Recommended routine:');
-    lines.push('  Morning: '+p.cleanser+' → '+p.day);
-    lines.push('  Evening: '+p.cleanser+' → '+p.night);
-    lines.push('  Makeup: '+p.foundation+' + '+p.lips);
-  }
+  if(quiz.concern)lines.push('Beauty concern: '+quiz.concern);
+  if(quiz.details)lines.push('Additional details: '+quiz.details);
   return lines.join('\n');
 }
 
 async function callAI(history,quiz){
   const userMessages=history.filter(m=>m.role==='user').map(m=>m.content||'');
   const turn=userMessages.length;
-  const lastMsg=(userMessages[userMessages.length-1]||'').toLowerCase();
-  const fullContext=userMessages.join(' ').toLowerCase();
 
   if(turn<=1){
-    return "Hey gorgeous! I'm Crystal's beauty guide — here to help you find exactly what works for your skin and your life.\n\nWhat's your biggest beauty concern right now? Skin, makeup, or both?";
+    return "Hey gorgeous! I'm Crystal's beauty assistant — here to learn a little about you so she can build your perfect plan.\n\nWhat's your biggest beauty concern right now? Skin, makeup, aging, glow-up — anything goes!";
   }
 
   if(turn===2){
-    const hasSkin=/skin|dry|oily|acne|dark|aging|wrinkle|glow|dull|sensitive|redness|breakout|moistur|pore|routine|care|face|complexion|tone|spot|scar/.test(fullContext);
-    const hasMakeup=/makeup|foundation|lipstick|mascara|eye|brow|contour|blush|coverage|finish|glam|beat|face.*up|look|color/.test(fullContext);
-    const hasBoth=/both|everything|full|all|skin.*makeup|makeup.*skin/.test(fullContext);
-    if(hasBoth||hasSkin&&hasMakeup){
-      quiz.focus='Skincare + Makeup';
-      return "Love that — a full beauty reset! Let's start with your skin since that's the foundation for everything.\n\nHow would you describe your skin? Dry, oily, combination, sensitive — or honestly not sure? And any specific concerns like dark spots, breakouts, or fine lines?";
-    }
-    if(hasSkin){
-      quiz.focus='Skincare';
-      return "I hear you. Skin concerns are so personal — what Michigan weather does to your skin is real.\n\nHow would you describe your skin? Mostly dry, oily, combination, or sensitive? And do you have any specific concerns like dark spots, redness, or fine lines?";
-    }
-    if(hasMakeup){
-      quiz.focus='Makeup';
-      return "Yes! Makeup that actually works with your skin — not against it — makes all the difference.\n\nWhat's your vibe? Natural and effortless, polished and professional, or full glam? And how much time do you realistically have in the morning?";
-    }
-    return "Tell me a little more — are you focused on skincare, makeup, or building a full routine from scratch? I want to make sure Crystal's recommendations are built around what you actually need.";
+    quiz.concern=userMessages[userMessages.length-1].substring(0,500);
+    return "Love that — Crystal is going to have so much to work with!\n\nAnything else she should know? Your skin type, current routine, sensitivities, or goals? Even \"I have no clue where to start\" is totally helpful!";
   }
 
-  if(turn===3){
-    quiz.skinType=detectProfile(fullContext);
-    quiz.concerns=detectConcerns(fullContext);
-    if(/natural|effort|minimal|simple|quick|easy|no.?fuss/.test(lastMsg))quiz.makeupPref='Natural / effortless';
-    if(/polish|profession|clean|put.?together/.test(lastMsg))quiz.makeupPref='Polished / professional';
-    if(/glam|full|beat|bold|dramatic|extra/.test(lastMsg))quiz.makeupPref='Full glam';
-    return "Got it! One more thing — what does your current routine look like? Even if it's just soap and water, no judgment at all. And what's your budget comfort zone: keeping it simple and affordable, mid-range, or ready to invest in pieces that last?";
+  if(turn>=3){
+    quiz.details=userMessages[userMessages.length-1].substring(0,500);
+    return "Perfect! Crystal will put together a custom plan built just for you — no pressure, no obligation.\n\nDrop your name and email below so she can follow up personally within 24 hours!";
   }
 
-  if(turn===4){
-    quiz.routine=userMessages[userMessages.length-1].substring(0,200);
-    quiz.budget=detectBudget(lastMsg);
-    quiz.skinType=detectProfile(fullContext);
-    quiz.concerns=detectConcerns(fullContext);
-    const plan=PRODUCT_PLANS[quiz.skinType];
-    quiz.plan=plan;
-    const concernStr=quiz.concerns.length?quiz.concerns.slice(0,3).join(', '):'your goals';
-    return `Based on everything you've shared, here's a personalized starter routine built just for you:\n\n☀️ Morning: ${plan.cleanser} → ${plan.day}\n🌙 Evening: ${plan.cleanser} → ${plan.night}\n💄 Makeup: ${plan.foundation} + ${plan.lips}\n\nThis targets ${concernStr} and works with your ${plan.label.toLowerCase()} skin.\n\nThis is just a starting point — Crystal will fine-tune everything around your exact skin, schedule, and budget.\n\nWant Crystal to put together a full personalized plan just for you?`;
-  }
-
-  if(turn===5){
-    return "Crystal offers a free consultation — virtual or in-person in Oak Park, MI — where she builds your complete routine from scratch. No pressure, no obligation.\n\nDrop your name and email below and she'll follow up personally within 24 hours with your custom plan!";
-  }
-
-  return "Crystal would love to connect with you directly — she follows up personally within 24 hours. Share your details below and she'll reach out!";
+  return "Crystal would love to connect! Share your details below and she'll reach out within 24 hours.";
 }
 
 /* ═══ CHAT STATE ═══ */
@@ -1102,7 +1056,7 @@ function addEmailCapture(msgsEl,state,chatId){
   if(state.emailDone)return;
   const summary=buildQuizSummary(state.quiz);
   const c=document.createElement('div');c.className='ecapture on';
-  c.innerHTML=`<div class="ectitle">Your personalized routine is ready</div><div class="ecsub">Share your details so Crystal can follow up with your custom plan within 24 hours.</div><div class="ecfields"><input class="ecfield" type="text" id="en-${chatId}" placeholder="Your first name"/><input class="ecfield" type="email" id="ee-${chatId}" placeholder="Your email address"/><input class="ecfield" type="tel" id="ep-${chatId}" placeholder="Phone number (optional)"/><button class="ecbtn" onclick="submitEmail('${chatId}',this)">Send to Crystal →</button></div>`;
+  c.innerHTML=`<div class="ectitle">Let Crystal build your custom plan</div><div class="ecsub">Share your details and she'll follow up personally within 24 hours.</div><div class="ecfields"><input class="ecfield" type="text" id="en-${chatId}" placeholder="Your first name"/><input class="ecfield" type="email" id="ee-${chatId}" placeholder="Your email address"/><input class="ecfield" type="tel" id="ep-${chatId}" placeholder="Phone number (optional)"/><button class="ecbtn" onclick="submitEmail('${chatId}',this)">Send to Crystal →</button></div>`;
   msgsEl.appendChild(c);msgsEl.scrollTop=msgsEl.scrollHeight;
 }
 
@@ -1163,7 +1117,7 @@ async function send(chat){
   state.history.push({role:'assistant',content:reply});
   state.count++;
   addMsg(msgs,'assistant',reply);
-  if(state.count>=3&&!state.emailDone&&!state.consultDone){
+  if(state.count>=2&&!state.emailDone&&!state.consultDone){
     state.consultDone=true;
     setTimeout(()=>addEmailCapture(msgs,state,chat),600);
   }
