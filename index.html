@@ -154,7 +154,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .styframe{position:relative;flex:1;margin-bottom:3rem;overflow:hidden;background:linear-gradient(135deg,rgba(139,74,30,.25) 0%,rgba(194,24,91,.4) 40%,rgba(13,10,9,.6) 100%);min-height:350px;display:flex;align-items:center;justify-content:center;border-radius:16px;}
 .styframe::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(196,131,42,.15) 0%,transparent 60%);}
 .styframe::after{content:'';position:absolute;top:1rem;left:1rem;right:1rem;bottom:1rem;border:1px solid rgba(212,168,83,.08);pointer-events:none;}
-.styframe img{width:100%;height:100%;object-fit:cover;object-position:center top;position:absolute;inset:0;}
+.styframe img{width:100%;height:100%;object-fit:contain;object-position:center center;position:absolute;inset:0;}
 .styph{font-family:'Playfair Display',serif;font-style:italic;color:rgba(212,168,83,.15);z-index:1;text-align:center;}
 .styph .big{display:block;font-size:8rem;font-weight:900;line-height:1;color:rgba(212,168,83,.06);}
 .glasscard{background:rgba(255,255,255,.08);backdrop-filter:blur(20px);border:1px solid rgba(212,168,83,.3);padding:2rem;box-shadow:0 8px 32px rgba(0,0,0,.3);}
@@ -386,6 +386,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .vipvis{position:relative;background:linear-gradient(135deg,rgba(194,24,91,.8) 0%,rgba(139,74,30,.2) 50%,rgba(13,10,9,.9) 100%);aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;overflow:hidden;}
 .vipvis-clean{background:var(--ink2);border:1px solid rgba(212,168,83,.15);border-radius:16px;}
 .vipvis-clean::before{display:none;}
+.vipvis-clean img{opacity:1!important;mix-blend-mode:normal!important;}
 .vipvis::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(196,131,42,.12) 0%,transparent 65%);}
 .vipvis img{width:100%;height:100%;object-fit:cover;object-position:center top;position:absolute;inset:0;opacity:.5;mix-blend-mode:luminosity;}
 .vipvinn{text-align:center;position:relative;z-index:1;padding:3rem;}
@@ -631,20 +632,6 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
       <p class="slabel">Who Crystal Serves</p>
       <h2 class="bigq">She doesn't just want to look beautiful.<br/>She wants to feel <em>unstoppable.</em></h2>
       <p class="stmtp">Crystal Brock built her practice for the woman who shows up fully in every room she enters. The executive. The entrepreneur. The woman who knows exactly what she wants and expects a beauty consultant who gets it, too. No pressure. No pushy tactics. Just personalized expertise and results that hold up.</p>
-      <div class="statrow">
-        <div class="stat-block">
-          <div class="stat-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.1" style="color:var(--amber)"><path d="M14 4 L17 10 L24 11 L19 16 L20 23 L14 20 L8 23 L9 16 L4 11 L11 10 Z"/></svg></div>
-          <div class="statl" style="margin-top:.4rem">Est. 2024</div>
-        </div>
-        <div class="stat-block">
-          <div class="stat-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.1" style="color:var(--amber)"><rect x="3" y="4" width="22" height="16" rx="1"/><line x1="9" y1="24" x2="19" y2="24"/><line x1="14" y1="20" x2="14" y2="24"/></svg></div>
-          <div class="statl" style="margin-top:.4rem">Virtual &amp; In-Person</div>
-        </div>
-        <div class="stat-block">
-          <div class="stat-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.1" style="color:var(--amber)"><path d="M14 3 C9 3 5 7 5 12 C5 19 14 25 14 25 C14 25 23 19 23 12 C23 7 19 3 14 3Z"/><circle cx="14" cy="12" r="3"/></svg></div>
-          <div class="statl" style="margin-top:.4rem">Oak Park, Michigan</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
