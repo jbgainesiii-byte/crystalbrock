@@ -947,61 +947,123 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
 <script>
 /* ═══ GUIDED CHAT LOGIC ═══ */
 const PRODUCT_PLANS={
-  dry:{cleanser:'TimeWise Repair Volu-Firm',day:'TimeWise 3D Moisturizer',night:'Volu-Firm Eye Cream',foundation:'Luminous 3D Foundation',lips:'Gel Semi-Shine Lipstick'},
-  oily:{cleanser:'Botanical Effects',day:'Matte-Wear Foundation',night:'Volu-Fill Wrinkle Filler',foundation:'Matte-Wear Foundation',lips:'NouriShine Plus Lip Gloss'},
-  sensitive:{cleanser:'Botanical Effects',day:'Mineral Powder Foundation',night:'TimeWise 3D Moisturizer',foundation:'Mineral Powder Foundation',lips:'Naturally Buff Lipstick'},
-  brightening:{cleanser:'TimeWise 3D Cleanser',day:'Luminous 3D Foundation',night:'Vitamin C Squares',foundation:'Luminous 3D Foundation',lips:'Rosewood Lipstick'},
-  balanced:{cleanser:'TimeWise 3D Cleanser',day:'TimeWise 3D Moisturizer',night:'Volu-Firm Eye Cream',foundation:'CC Cream Sunscreen',lips:'Semi-Matte Lipstick'}
+  dry:{label:'Dry / Dehydrated',cleanser:'TimeWise Repair Volu-Firm',day:'TimeWise 3D Moisturizer',night:'Volu-Firm Eye Cream',foundation:'Luminous 3D Foundation',lips:'Gel Semi-Shine Lipstick'},
+  oily:{label:'Oily / Acne-Prone',cleanser:'Botanical Effects',day:'Matte-Wear Foundation',night:'Volu-Fill Wrinkle Filler',foundation:'Matte-Wear Foundation',lips:'NouriShine Plus Lip Gloss'},
+  sensitive:{label:'Sensitive / Reactive',cleanser:'Botanical Effects',day:'Mineral Powder Foundation',night:'TimeWise 3D Moisturizer',foundation:'Mineral Powder Foundation',lips:'Naturally Buff Lipstick'},
+  brightening:{label:'Brightening / Even Tone',cleanser:'TimeWise 3D Cleanser',day:'Luminous 3D Foundation',night:'Vitamin C Squares',foundation:'Luminous 3D Foundation',lips:'Rosewood Lipstick'},
+  balanced:{label:'Balanced / Combination',cleanser:'TimeWise 3D Cleanser',day:'TimeWise 3D Moisturizer',night:'Volu-Firm Eye Cream',foundation:'CC Cream Sunscreen',lips:'Semi-Matte Lipstick'}
 };
+
+/* ═══ QUIZ DATA TRACKER ═══ */
+function newQuiz(){return{focus:'',skinType:'',concerns:[],routine:'',budget:'',makeupPref:'',plan:null};}
 
 function detectProfile(text){
   const t=text.toLowerCase();
-  if(/sensitive|reactive|redness|irritat/.test(t))return PRODUCT_PLANS.sensitive;
-  if(/oily|oil|acne|breakout|shine/.test(t))return PRODUCT_PLANS.oily;
-  if(/dry|flaky|tight|dehydrat/.test(t))return PRODUCT_PLANS.dry;
-  if(/dull|dark spot|bright|uneven|hyperpigment/.test(t))return PRODUCT_PLANS.brightening;
-  return PRODUCT_PLANS.balanced;
+  if(/sensitive|reactive|redness|irritat|eczema|sting|burn|fragrance.?free|gentle|calm/.test(t))return'sensitive';
+  if(/oily|oil|acne|breakout|shine|pore|greasy|t.?zone|blemish|pimple|zit/.test(t))return'oily';
+  if(/dry|flaky|tight|dehydrat|crack|peel|rough|ashy|moist/.test(t))return'dry';
+  if(/dull|dark.?spot|bright|uneven|hyperpig|discolor|melasma|glow|tone|fade|scar/.test(t))return'brightening';
+  return'balanced';
 }
 
-async function callAI(history){
+function detectConcerns(text){
+  const t=text.toLowerCase(),found=[];
+  if(/aging|wrinkle|fine.?line|crow|firm|sag|mature|anti.?ag/.test(t))found.push('Anti-aging');
+  if(/dark.?spot|hyperpig|discolor|melasma|uneven|scar/.test(t))found.push('Dark spots / uneven tone');
+  if(/acne|breakout|blemish|pimple|zit/.test(t))found.push('Acne / breakouts');
+  if(/dry|dehydrat|flak|tight|moist|ashy/.test(t))found.push('Dryness / dehydration');
+  if(/redness|irritat|sensitive|react|eczema|rosacea/.test(t))found.push('Redness / sensitivity');
+  if(/pore|oily|shine|greasy/.test(t))found.push('Oily skin / large pores');
+  if(/dull|glow|tired|radiance/.test(t))found.push('Dull / tired skin');
+  if(found.length===0)found.push('General skincare');
+  return found;
+}
+
+function detectBudget(text){
+  const t=text.toLowerCase();
+  if(/cheap|afford|budget|low|under \$|frugal|simple/.test(t))return'Budget-friendly';
+  if(/invest|premium|splurge|high.?end|luxury|best|money.?no/.test(t))return'Investment / premium';
+  return'Mid-range';
+}
+
+function buildQuizSummary(quiz){
+  const lines=[];
+  if(quiz.focus)lines.push('Focus: '+quiz.focus);
+  if(quiz.skinType)lines.push('Skin type: '+(PRODUCT_PLANS[quiz.skinType]?.label||quiz.skinType));
+  if(quiz.concerns.length)lines.push('Concerns: '+quiz.concerns.join(', '));
+  if(quiz.routine)lines.push('Current routine: '+quiz.routine);
+  if(quiz.budget)lines.push('Budget: '+quiz.budget);
+  if(quiz.makeupPref)lines.push('Makeup preference: '+quiz.makeupPref);
+  if(quiz.plan){
+    const p=quiz.plan;
+    lines.push('Recommended routine:');
+    lines.push('  Morning: '+p.cleanser+' → '+p.day);
+    lines.push('  Evening: '+p.cleanser+' → '+p.night);
+    lines.push('  Makeup: '+p.foundation+' + '+p.lips);
+  }
+  return lines.join('\n');
+}
+
+async function callAI(history,quiz){
   const userMessages=history.filter(m=>m.role==='user').map(m=>m.content||'');
   const turn=userMessages.length;
+  const lastMsg=(userMessages[userMessages.length-1]||'').toLowerCase();
   const fullContext=userMessages.join(' ').toLowerCase();
 
   if(turn<=1){
-    return "Hi! I'm Crystal's beauty guide — here to help you find exactly what works for your skin and your life.\n\nWhat's your biggest beauty concern right now? Skin, makeup, or both?";
+    return "Hey gorgeous! I'm Crystal's beauty guide — here to help you find exactly what works for your skin and your life.\n\nWhat's your biggest beauty concern right now? Skin, makeup, or both?";
   }
+
   if(turn===2){
-    const hasSkin=/skin|dry|oily|acne|dark|aging|wrinkle|glow|dull|sensitive|redness|breakout|moistur/.test(fullContext);
-    const hasMakeup=/makeup|foundation|lipstick|mascara|eye|brow|contour|blush|coverage|finish/.test(fullContext);
+    const hasSkin=/skin|dry|oily|acne|dark|aging|wrinkle|glow|dull|sensitive|redness|breakout|moistur|pore|routine|care|face|complexion|tone|spot|scar/.test(fullContext);
+    const hasMakeup=/makeup|foundation|lipstick|mascara|eye|brow|contour|blush|coverage|finish|glam|beat|face.*up|look|color/.test(fullContext);
+    const hasBoth=/both|everything|full|all|skin.*makeup|makeup.*skin/.test(fullContext);
+    if(hasBoth||hasSkin&&hasMakeup){
+      quiz.focus='Skincare + Makeup';
+      return "Love that — a full beauty reset! Let's start with your skin since that's the foundation for everything.\n\nHow would you describe your skin? Dry, oily, combination, sensitive — or honestly not sure? And any specific concerns like dark spots, breakouts, or fine lines?";
+    }
     if(hasSkin){
-      return "I hear you. Skin concerns are so personal — what Michigan winters do to your skin is real.\n\nQuick question: would you describe your skin as mostly dry, oily, combination, or sensitive? And do you have any specific concerns like dark spots, redness, or fine lines?";
+      quiz.focus='Skincare';
+      return "I hear you. Skin concerns are so personal — what Michigan weather does to your skin is real.\n\nHow would you describe your skin? Mostly dry, oily, combination, or sensitive? And do you have any specific concerns like dark spots, redness, or fine lines?";
     }
     if(hasMakeup){
-      return "Love that. Makeup that actually works with your skin makes all the difference.\n\nWhat finish do you prefer — natural and effortless, polished and professional, or full glam? And how much time do you realistically have for your morning routine?";
+      quiz.focus='Makeup';
+      return "Yes! Makeup that actually works with your skin — not against it — makes all the difference.\n\nWhat's your vibe? Natural and effortless, polished and professional, or full glam? And how much time do you realistically have in the morning?";
     }
     return "Tell me a little more — are you focused on skincare, makeup, or building a full routine from scratch? I want to make sure Crystal's recommendations are built around what you actually need.";
   }
+
   if(turn===3){
-    return "Perfect. One more thing — what does your current routine look like? Even if it's just soap and water, that's helpful. And what's your budget comfort zone: simple and affordable, mid-range, or investment pieces that last?";
+    quiz.skinType=detectProfile(fullContext);
+    quiz.concerns=detectConcerns(fullContext);
+    if(/natural|effort|minimal|simple|quick|easy|no.?fuss/.test(lastMsg))quiz.makeupPref='Natural / effortless';
+    if(/polish|profession|clean|put.?together/.test(lastMsg))quiz.makeupPref='Polished / professional';
+    if(/glam|full|beat|bold|dramatic|extra/.test(lastMsg))quiz.makeupPref='Full glam';
+    return "Got it! One more thing — what does your current routine look like? Even if it's just soap and water, no judgment at all. And what's your budget comfort zone: keeping it simple and affordable, mid-range, or ready to invest in pieces that last?";
   }
 
-  const plan=detectProfile(fullContext);
   if(turn===4){
-    const concern=fullContext.includes('aging')||fullContext.includes('wrinkle')?'anti-aging focus':'general care';
-    return `Based on everything you shared, here's a personalized starter routine built for you.\n\nMorning: ${plan.cleanser} → ${plan.day}\nEvening: ${plan.cleanser} → ${plan.night}\nMakeup: ${plan.foundation} + ${plan.lips}\n\nThis is a starting point. Crystal will fine-tune it around your exact skin, schedule, and budget when you connect with her.\n\nWant her to put together a full personalized plan just for you?`;
-  }
-  if(turn===5){
-    return "Crystal can do a full consultation — virtual or in-person in Oak Park — where she builds your complete routine from scratch. No pressure, no obligation to buy anything.\n\nShare your name and email below and she'll follow up personally within 24 hours.";
+    quiz.routine=userMessages[userMessages.length-1].substring(0,200);
+    quiz.budget=detectBudget(lastMsg);
+    quiz.skinType=detectProfile(fullContext);
+    quiz.concerns=detectConcerns(fullContext);
+    const plan=PRODUCT_PLANS[quiz.skinType];
+    quiz.plan=plan;
+    const concernStr=quiz.concerns.length?quiz.concerns.slice(0,3).join(', '):'your goals';
+    return `Based on everything you've shared, here's a personalized starter routine built just for you:\n\n☀️ Morning: ${plan.cleanser} → ${plan.day}\n🌙 Evening: ${plan.cleanser} → ${plan.night}\n💄 Makeup: ${plan.foundation} + ${plan.lips}\n\nThis targets ${concernStr} and works with your ${plan.label.toLowerCase()} skin.\n\nThis is just a starting point — Crystal will fine-tune everything around your exact skin, schedule, and budget.\n\nWant Crystal to put together a full personalized plan just for you?`;
   }
 
-  return "Crystal would love to connect with you directly. She follows up personally within 24 hours. Share your details below and she'll reach out.";
+  if(turn===5){
+    return "Crystal offers a free consultation — virtual or in-person in Oak Park, MI — where she builds your complete routine from scratch. No pressure, no obligation.\n\nDrop your name and email below and she'll follow up personally within 24 hours with your custom plan!";
+  }
+
+  return "Crystal would love to connect with you directly — she follows up personally within 24 hours. Share your details below and she'll reach out!";
 }
 
 /* ═══ CHAT STATE ═══ */
 const states={
-  main:{history:[],count:0,emailDone:false,consultDone:false,ready:false,initialized:false},
-  float:{history:[],count:0,emailDone:false,consultDone:false,ready:false,initialized:false}
+  main:{history:[],count:0,emailDone:false,consultDone:false,ready:false,initialized:false,quiz:newQuiz()},
+  float:{history:[],count:0,emailDone:false,consultDone:false,ready:false,initialized:false,quiz:newQuiz()}
 };
 
 /* ═══ DOM HELPERS ═══ */
@@ -1038,22 +1100,37 @@ function removeTyping(msgsEl){const t=msgsEl.querySelector('[id^="typ-"]');if(t)
 
 function addEmailCapture(msgsEl,state,chatId){
   if(state.emailDone)return;
+  const summary=buildQuizSummary(state.quiz);
   const c=document.createElement('div');c.className='ecapture on';
-  c.innerHTML=`<div class="ectitle">Your personalized routine is ready ✨</div><div class="ecsub">Share your details and we'll open a pre-filled email draft to Crystal so she can follow up personally.</div><div class="ecfields"><input class="ecfield" type="text" id="en-${chatId}" placeholder="Your first name"/><input class="ecfield" type="email" id="ee-${chatId}" placeholder="Your email address"/><button class="ecbtn" onclick="submitEmail('${chatId}',this)">Open Email Draft →</button></div>`;
+  c.innerHTML=`<div class="ectitle">Your personalized routine is ready</div><div class="ecsub">Share your details so Crystal can follow up with your custom plan within 24 hours.</div><div class="ecfields"><input class="ecfield" type="text" id="en-${chatId}" placeholder="Your first name"/><input class="ecfield" type="email" id="ee-${chatId}" placeholder="Your email address"/><input class="ecfield" type="tel" id="ep-${chatId}" placeholder="Phone number (optional)"/><button class="ecbtn" onclick="submitEmail('${chatId}',this)">Send to Crystal →</button></div>`;
   msgsEl.appendChild(c);msgsEl.scrollTop=msgsEl.scrollHeight;
 }
 
 function submitEmail(chatId,btn){
   const name=(document.getElementById('en-'+chatId)?.value||'').trim();
   const email=(document.getElementById('ee-'+chatId)?.value||'').trim();
+  const phone=(document.getElementById('ep-'+chatId)?.value||'').trim();
   if(!email){document.getElementById('ee-'+chatId).focus();return;}
-  btn.closest('.ecapture').remove();
+  btn.textContent='Sending...';btn.disabled=true;
   const{msgs,state}=getEls(chatId);
   state.emailDone=true;
-  const subject=`Beauty consultation follow-up${name?` - ${name}`:''}`;
-  const body=`Hi Crystal,%0D%0A%0D%0AI just completed the beauty consultation chat and would love a follow-up.%0D%0A%0D%0AName: ${encodeURIComponent(name||'Not provided')}%0D%0AEmail: ${encodeURIComponent(email)}%0D%0A%0D%0AThank you!`;
-  window.location.href=`mailto:cbrockmk@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-  addMsg(msgs,'assistant',`Perfect${name?', '+name:''}! ✨\n\nI opened a pre-filled email draft to Crystal from your device so your follow-up reaches her directly.\n\nIf your mail app didn't open, email her at cbrockmk@gmail.com.`);
+  const summary=buildQuizSummary(state.quiz);
+  const chatLog=state.history.map(m=>(m.role==='user'?'Client: ':'Crystal Bot: ')+m.content).join('\n\n');
+
+  /* Primary: send via Formspree (free, no server needed) */
+  const formData={name:name||'Not provided',email:email,phone:phone||'Not provided',quiz_summary:summary,chat_transcript:chatLog.substring(0,3000),_subject:'New Beauty Consultation - '+(name||'Website Visitor'),_replyto:email};
+  fetch('https://formspree.io/f/cbrockmk@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(formData)}).then(r=>{
+    if(!r.ok)throw new Error('Form failed');
+  }).catch(()=>{
+    /* Fallback: mailto with quiz data */
+    const nl='%0D%0A';
+    const subject=encodeURIComponent('Beauty Consultation Follow-up'+(name?' - '+name:''));
+    const body=['Hi Crystal!','','A new client just completed the beauty quiz on your website.','','--- CLIENT INFO ---','Name: '+(name||'Not provided'),'Email: '+email,'Phone: '+(phone||'Not provided'),'','--- QUIZ RESULTS ---',summary,'','--- CHAT TRANSCRIPT ---',chatLog.substring(0,1500)].map(l=>encodeURIComponent(l)).join(nl);
+    window.open('mailto:cbrockmk@gmail.com?subject='+subject+'&body='+body,'_blank');
+  });
+
+  btn.closest('.ecapture').remove();
+  addMsg(msgs,'assistant',`Perfect${name?', '+name:''}!\n\nYour quiz results and info have been sent to Crystal. She'll follow up personally within 24 hours with a plan built just for you.\n\nIn the meantime, you can:\n• Book a free consultation: crystalbrock.com/#booking\n• Join the VIP list for exclusive deals\n• Follow Crystal on social media\n\nTalk soon!`);
 }
 
 /* ═══ INIT CHAT ═══ */
@@ -1061,11 +1138,12 @@ async function initChat(chat){
   const{msgs,state}=getEls(chat);
   if(state.initialized)return;
   state.initialized=true;
+  state.quiz=newQuiz();
   addTyping(msgs);
   const seed=[{role:'user',content:"Hi, I just found Crystal's website and I'm curious about getting a personalized beauty consultation."}];
-  const opening=await callAI(seed);
+  const opening=await callAI(seed,state.quiz);
   removeTyping(msgs);
-  state.history=[{role:'assistant',content:opening}];
+  state.history=[{role:'user',content:seed[0].content},{role:'assistant',content:opening}];
   addMsg(msgs,'assistant',opening);
   state.ready=true;
 }
@@ -1080,7 +1158,7 @@ async function send(chat){
   btn.disabled=true;
   state.history.push({role:'user',content:text});
   addTyping(msgs);
-  const reply=await callAI(state.history);
+  const reply=await callAI(state.history,state.quiz);
   removeTyping(msgs);
   state.history.push({role:'assistant',content:reply});
   state.count++;
@@ -1137,7 +1215,7 @@ document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>ro.observe(el));
 function resetChat(chat){
   const{msgs,input,state}=getEls(chat);
   msgs.innerHTML='';
-  states[chat]={history:[],count:0,emailDone:false,consultDone:false,ready:false,initialized:false};
+  states[chat]={history:[],count:0,emailDone:false,consultDone:false,ready:false,initialized:false,quiz:newQuiz()};
   initChat(chat);
   input.value='';input.style.height='auto';
 }
