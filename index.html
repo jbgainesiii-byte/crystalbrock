@@ -155,6 +155,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .styframe::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(196,131,42,.15) 0%,transparent 60%);}
 .styframe::after{content:'';position:absolute;top:1rem;left:1rem;right:1rem;bottom:1rem;border:1px solid rgba(212,168,83,.08);border-radius:10px;pointer-events:none;}
 .styframe img{width:100%;height:100%;object-fit:contain;object-position:center center;position:absolute;inset:0;}
+.stysig{position:absolute;bottom:1.5rem;right:1.5rem;z-index:3;background:rgba(13,10,9,.65);backdrop-filter:blur(12px);border:1px solid rgba(212,168,83,.3);padding:.7rem 1.2rem;display:flex;flex-direction:column;gap:.2rem;border-radius:6px;}
+.stysig-name{font-family:'Playfair Display',serif;font-size:.9rem;font-style:italic;color:var(--cream);letter-spacing:.05em;}
+.stysig-title{font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(212,168,83,.7);}
 .styph{font-family:'Playfair Display',serif;font-style:italic;color:rgba(212,168,83,.15);z-index:1;text-align:center;}
 .styph .big{display:block;font-size:8rem;font-weight:900;line-height:1;color:rgba(212,168,83,.06);}
 .glasscard{background:rgba(255,255,255,.08);backdrop-filter:blur(20px);border:1px solid rgba(212,168,83,.3);padding:2rem;box-shadow:0 8px 32px rgba(0,0,0,.3);}
@@ -650,6 +653,10 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
     <div class="styr rvr">
       <div class="styframe">
         <img src="images/story-photo.jpg" alt="Crystal Brock, Mary Kay Beauty Consultant, Oak Park Michigan" loading="lazy"/>
+        <div class="stysig">
+          <span class="stysig-name">Crystal Brock</span>
+          <span class="stysig-title">Independent Beauty Consultant</span>
+        </div>
       </div>
       <div class="glasscard">
         <p class="glassq">"My ideal customer is the corporate woman who wants to look, feel, and exhibit confidence."</p>
