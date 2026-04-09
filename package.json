@@ -1,0 +1,17 @@
+{
+  "name": "crystalbrock",
+  "version": "1.0.0",
+  "description": "Crystal Brock Beauty Consultant website",
+  "private": true,
+  "scripts": {
+    "lint": "htmlhint index.html",
+    "format": "prettier --write index.html",
+    "format:check": "prettier --check index.html",
+    "serve": "serve ."
+  },
+  "devDependencies": {
+    "htmlhint": "^1.1.4",
+    "prettier": "^3.3.3",
+    "serve": "^14.2.3"
+  }
+}
