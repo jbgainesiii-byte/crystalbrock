@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jbgainesiii-byte.github.io/crystalbrock/sitemap.xml
