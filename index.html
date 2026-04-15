@@ -942,6 +942,13 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:5rem 5vw
 </div>
 
 <script>
+/* ═══ KILL SWITCH ═══ */
+const SITE_ACTIVE = false;
+if(!SITE_ACTIVE){
+  document.documentElement.style.cssText='margin:0;padding:0;height:100%;';
+  document.body.style.cssText='margin:0;padding:0;height:100%;background:#0D0A09;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;';
+  document.body.innerHTML='<div style="text-align:center;padding:2rem;"><p style="color:rgba(212,168,83,.5);font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;margin-bottom:1.5rem;">Notice</p><p style="color:#F5EFE6;font-size:1.1rem;line-height:1.8;max-width:420px;">This site is currently unavailable.<br>Please check back later.</p></div>';
+}
 /* ═══ GUIDED CHAT LOGIC ═══ */
 function newQuiz(){return{concern:'',details:''};}
 
